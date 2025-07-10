@@ -1,0 +1,31 @@
+name: Prompters Daily Report
+
+on:
+  schedule:
+    # 毎日朝8時に実行 (UTC 23:00 = JST 8:00)
+    - cron: '0 23 * * *'
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Generate and send report
+      env:
+        EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        EMAIL_TO: tuwari69@gmail.com
+        SITE_URL: https://kyuujin.prompters.jp
+      run: node scripts/generate-report.js
