@@ -1,0 +1,12 @@
+{
+  "name": "prompters-daily-report",
+  "version": "1.0.0",
+  "description": "Daily report for Prompters job site",
+  "main": "scripts/generate-report.js",
+  "scripts": {
+    "report": "node scripts/generate-report.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  }
+}
